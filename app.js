@@ -1,23 +1,26 @@
+// API Key The-Odds-API kamu
+const ODDS_API_KEY = "00f95a0a3c53536fe82a352e24181652";
+
 const teamsData = [
   // Liga A (Dengan Detail 5 Laga Terakhir)
   { 
-    id: "ESP", name: "Spanyol", rank: 1, league: "A", formScore: 13,
+    id: "ESP", name: "Spanyol", rank: 1, league: "A", formScore: 15,
     matches: [
-      { opponent: "DEN", score: "2 - 1", result: "W" },
-      { opponent: "SRB", score: "3 - 0", result: "W" },
-      { opponent: "DEN", score: "1 - 0", result: "W" },
-      { opponent: "SUI", score: "1 - 1", result: "D" },
-      { opponent: "SUI", score: "4 - 1", result: "W" }
+      { opponent: "Ceko", score: "3 - 1", result: "W" },
+      { opponent: "Kroasia", score: "4 - 1", result: "W" },
+      { opponent: "Inggris", score: "3 - 2", result: "W" },
+      { opponent: "Argentina", score: "1 - 0", result: "W" },
+      { opponent: "Prancis", score: "2 - 0", result: "W" }
     ]
   },
   { 
-    id: "FRA", name: "Prancis", rank: 2, league: "A", formScore: 10,
+    id: "FRA", name: "Prancis", rank: 2, league: "A", formScore: 8,
     matches: [
-      { opponent: "ITA", score: "3 - 1", result: "W" },
-      { opponent: "ISR", score: "0 - 0", result: "D" },
-      { opponent: "BEL", score: "2 - 1", result: "W" },
-      { opponent: "ISR", score: "4 - 1", result: "W" },
-      { opponent: "BEL", score: "2 - 0", result: "W" }
+      { opponent: "Italia", score: "1 - 1", result: "D" },
+      { opponent: "Belgia", score: "1 - 0", result: "W" },
+      { opponent: "Turki", score: "1 - 0", result: "W" },
+      { opponent: "Inggris", score: "4 - 6", result: "L" },
+      { opponent: "Spanyol", score: "0 - 2", result: "L" }
     ]
   },
   { 
@@ -82,7 +85,6 @@ const teamsData = [
   }
 ];
 
-// Fallback untuk tim yang belum diset detail match-nya
 function getTeamMatches(team) {
   if (team.matches && team.matches.length > 0) return team.matches;
   return [
@@ -94,7 +96,6 @@ function getTeamMatches(team) {
   ];
 }
 
-// Data Riwayat H2H
 const h2hDatabase = [
   { teamA: "ESP", teamB: "FRA", matches: [
     { date: "2024-07-09", event: "Euro 2024 Semi Final", score: "2 - 1", winner: "ESP" },
@@ -141,10 +142,80 @@ function updateData() {
   renderTeamForm('awayFormDetail', getTeamMatches(away));
 
   renderH2H(home, away);
+  fetchLive1xBetOdds(home.name, away.name);
   calculateAll(home, away);
 }
 
-// Function Render Performa 5 Laga (Skor + Lawan)
+// Fungsi Fetch Odds Live Khusus 1xBet
+async function fetchLive1xBetOdds(homeName, awayName) {
+  if (!ODDS_API_KEY) return;
+  
+  // Region EU, Khusus Bookmaker 1xBet (onexbet)
+  const url = `https://api.the-odds-api.com/v4/sports/soccer_uefa_nations_league/odds/?apiKey=${ODDS_API_KEY}&regions=eu&bookmakers=onexbet&markets=h2h,spreads,totals&oddsFormat=decimal`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) return;
+    const games = await response.json();
+
+    const match = games.find(g => 
+      (g.home_team.includes(homeName) || homeName.includes(g.home_team)) &&
+      (g.away_team.includes(awayName) || awayName.includes(g.away_team))
+    );
+
+    if (match && match.bookmakers && match.bookmakers.length > 0) {
+      // Ambil data pasaran dari 1xBet
+      const bookmaker = match.bookmakers.find(b => b.key === 'onexbet') || match.bookmakers[0];
+
+      // 1. Market 1X2
+      const h2hMarket = bookmaker.markets.find(m => m.key === 'h2h');
+      if (h2hMarket) {
+        const homeOut = h2hMarket.outcomes.find(o => o.name === match.home_team);
+        const awayOut = h2hMarket.outcomes.find(o => o.name === match.away_team);
+        const drawOut = h2hMarket.outcomes.find(o => o.name === 'Draw');
+
+        if (homeOut) document.getElementById('homeOdds').value = homeOut.price.toFixed(2);
+        if (drawOut) document.getElementById('drawOdds').value = drawOut.price.toFixed(2);
+        if (awayOut) document.getElementById('awayOdds').value = awayOut.price.toFixed(2);
+      }
+
+      // 2. Market Asian Handicap (HDP)
+      const spreadMarket = bookmaker.markets.find(m => m.key === 'spreads');
+      if (spreadMarket) {
+        const homeSpread = spreadMarket.outcomes.find(o => o.name === match.home_team);
+        const awaySpread = spreadMarket.outcomes.find(o => o.name === match.away_team);
+
+        if (homeSpread) {
+          document.getElementById('hdpValue').value = Math.abs(homeSpread.point).toFixed(2);
+          document.getElementById('hdpHomeOdds').value = homeSpread.price.toFixed(2);
+        }
+        if (awaySpread) {
+          document.getElementById('hdpAwayOdds').value = awaySpread.price.toFixed(2);
+        }
+      }
+
+      // 3. Market Over/Under (O/U)
+      const totalsMarket = bookmaker.markets.find(m => m.key === 'totals');
+      if (totalsMarket) {
+        const overOut = totalsMarket.outcomes.find(o => o.name === 'Over');
+        const underOut = totalsMarket.outcomes.find(o => o.name === 'Under');
+
+        if (overOut) {
+          document.getElementById('ouValue').value = overOut.point.toFixed(2);
+          document.getElementById('ouOverOdds').value = overOut.price.toFixed(2);
+        }
+        if (underOut) {
+          document.getElementById('ouUnderOdds').value = underOut.price.toFixed(2);
+        }
+      }
+
+      calculateAll(teamsData.find(t => t.id === homeSelect.value), teamsData.find(t => t.id === awaySelect.value));
+    }
+  } catch (err) {
+    console.log("Menggunakan pasaran manual.");
+  }
+}
+
 function renderTeamForm(elementId, matches) {
   const container = document.getElementById(elementId);
   let html = `<ul class="list-unstyled mb-0">`;
@@ -166,7 +237,6 @@ function renderTeamForm(elementId, matches) {
   container.innerHTML = html;
 }
 
-// Function Render Tabel H2H (Dark Theme)
 function renderH2H(home, away) {
   const container = document.getElementById('h2hContainer');
   if (home.id === away.id) {
@@ -227,7 +297,6 @@ function renderH2H(home, away) {
   container.innerHTML = tableHtml;
 }
 
-// Function Kalkulasi & Generator Saran Bet
 function calculateAll(home, away) {
   const oHome = parseFloat(document.getElementById('homeOdds').value) || 1;
   const oDraw = parseFloat(document.getElementById('drawOdds').value) || 1;
