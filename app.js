@@ -1,88 +1,67 @@
-// API Key The-Odds-API kamu
 const ODDS_API_KEY = "00f95a0a3c53536fe82a352e24181652";
 
 const teamsData = [
-  // Liga A (Dengan Detail 5 Laga Terakhir)
-  { 
-    id: "ESP", name: "Spanyol", rank: 1, league: "A", formScore: 15,
-    matches: [
-      { opponent: "Ceko", score: "3 - 1", result: "W" },
-      { opponent: "Kroasia", score: "4 - 1", result: "W" },
-      { opponent: "Inggris", score: "3 - 2", result: "W" },
-      { opponent: "Argentina", score: "1 - 0", result: "W" },
-      { opponent: "Prancis", score: "2 - 0", result: "W" }
-    ]
-  },
-  { 
-    id: "FRA", name: "Prancis", rank: 2, league: "A", formScore: 8,
-    matches: [
-      { opponent: "Italia", score: "1 - 1", result: "D" },
-      { opponent: "Belgia", score: "1 - 0", result: "W" },
-      { opponent: "Turki", score: "1 - 0", result: "W" },
-      { opponent: "Inggris", score: "4 - 6", result: "L" },
-      { opponent: "Spanyol", score: "0 - 2", result: "L" }
-    ]
-  },
-  { 
-    id: "ENG", name: "Inggris", rank: 3, league: "A", formScore: 12,
-    matches: [
-      { opponent: "IRL", score: "5 - 0", result: "W" },
-      { opponent: "GRE", score: "3 - 0", result: "W" },
-      { opponent: "FIN", score: "3 - 1", result: "W" },
-      { opponent: "GRE", score: "1 - 2", result: "L" },
-      { opponent: "FIN", score: "2 - 0", result: "W" }
-    ]
-  },
-  { 
-    id: "BEL", name: "Belgia", rank: 6, league: "A", formScore: 4,
-    matches: [
-      { opponent: "ISR", score: "0 - 1", result: "L" },
-      { opponent: "ITA", score: "0 - 1", result: "L" },
-      { opponent: "FRA", score: "1 - 2", result: "L" },
-      { opponent: "ITA", score: "2 - 2", result: "D" },
-      { opponent: "FRA", score: "0 - 2", result: "L" }
-    ]
-  },
-  { 
-    id: "NED", name: "Belanda", rank: 7, league: "A", formScore: 8,
-    matches: [
-      { opponent: "BIH", score: "1 - 1", result: "D" },
-      { opponent: "HUN", score: "4 - 0", result: "W" },
-      { opponent: "GER", score: "0 - 1", result: "L" },
-      { opponent: "HUN", score: "1 - 1", result: "D" },
-      { opponent: "GER", score: "2 - 2", result: "D" }
-    ]
-  },
-  { 
-    id: "POR", name: "Portugal", rank: 8, league: "A", formScore: 13,
-    matches: [
-      { opponent: "CRO", score: "1 - 1", result: "D" },
-      { opponent: "POL", score: "5 - 1", result: "W" },
-      { opponent: "SCO", score: "0 - 0", result: "D" },
-      { opponent: "POL", score: "3 - 1", result: "W" },
-      { opponent: "SCO", score: "2 - 1", result: "W" }
-    ]
-  },
-  { 
-    id: "ITA", name: "Italia", rank: 10, league: "A", formScore: 10,
-    matches: [
-      { opponent: "FRA", score: "1 - 3", result: "L" },
-      { opponent: "BEL", score: "1 - 0", result: "W" },
-      { opponent: "ISR", score: "4 - 1", result: "W" },
-      { opponent: "BEL", score: "2 - 2", result: "D" },
-      { opponent: "ISR", score: "2 - 1", result: "W" }
-    ]
-  },
-  { 
-    id: "GER", name: "Jerman", rank: 11, league: "A", formScore: 11,
-    matches: [
-      { opponent: "HUN", score: "1 - 1", result: "D" },
-      { opponent: "BIH", score: "7 - 0", result: "W" },
-      { opponent: "NED", score: "1 - 0", result: "W" },
-      { opponent: "BIH", score: "2 - 1", result: "W" },
-      { opponent: "NED", score: "2 - 2", result: "D" }
-    ]
-  }
+  // Liga A
+  { id: "ESP", name: "Spanyol", rank: 1, league: "A", formScore: 15, matches: [{ opponent: "Ceko", score: "3 - 1", result: "W" }, { opponent: "Kroasia", score: "4 - 1", result: "W" }, { opponent: "Inggris", score: "3 - 2", result: "W" }, { opponent: "Argentina", score: "1 - 0", result: "W" }, { opponent: "Prancis", score: "2 - 0", result: "W" }] },
+  { id: "FRA", name: "Prancis", rank: 2, league: "A", formScore: 8, matches: [{ opponent: "Italia", score: "1 - 1", result: "D" }, { opponent: "Belgia", score: "1 - 0", result: "W" }, { opponent: "Turki", score: "1 - 0", result: "W" }, { opponent: "Inggris", score: "4 - 6", result: "L" }, { opponent: "Spanyol", score: "0 - 2", result: "L" }] },
+  { id: "ENG", name: "Inggris", rank: 3, league: "A", formScore: 12, matches: [{ opponent: "IRL", score: "5 - 0", result: "W" }, { opponent: "GRE", score: "3 - 0", result: "W" }, { opponent: "FIN", score: "3 - 1", result: "W" }, { opponent: "GRE", score: "1 - 2", result: "L" }, { opponent: "FIN", score: "2 - 0", result: "W" }] },
+  { id: "BEL", name: "Belgia", rank: 6, league: "A", formScore: 4, matches: [{ opponent: "ISR", score: "0 - 1", result: "L" }, { opponent: "ITA", score: "0 - 1", result: "L" }, { opponent: "FRA", score: "1 - 2", result: "L" }, { opponent: "ITA", score: "2 - 2", result: "D" }, { opponent: "FRA", score: "0 - 2", result: "L" }] },
+  { id: "NED", name: "Belanda", rank: 7, league: "A", formScore: 8, matches: [{ opponent: "BIH", score: "1 - 1", result: "D" }, { opponent: "HUN", score: "4 - 0", result: "W" }, { opponent: "GER", score: "0 - 1", result: "L" }, { opponent: "HUN", score: "1 - 1", result: "D" }, { opponent: "GER", score: "2 - 2", result: "D" }] },
+  { id: "POR", name: "Portugal", rank: 8, league: "A", formScore: 13, matches: [{ opponent: "CRO", score: "1 - 1", result: "D" }, { opponent: "POL", score: "5 - 1", result: "W" }, { opponent: "SCO", score: "0 - 0", result: "D" }, { opponent: "POL", score: "3 - 1", result: "W" }, { opponent: "SCO", score: "2 - 1", result: "W" }] },
+  { id: "ITA", name: "Italia", rank: 10, league: "A", formScore: 10, matches: [{ opponent: "FRA", score: "1 - 3", result: "L" }, { opponent: "BEL", score: "1 - 0", result: "W" }, { opponent: "ISR", score: "4 - 1", result: "W" }, { opponent: "BEL", score: "2 - 2", result: "D" }, { opponent: "ISR", score: "2 - 1", result: "W" }] },
+  { id: "GER", name: "Jerman", rank: 11, league: "A", formScore: 11, matches: [{ opponent: "HUN", score: "1 - 1", result: "D" }, { opponent: "BIH", score: "7 - 0", result: "W" }, { opponent: "NED", score: "1 - 0", result: "W" }, { opponent: "BIH", score: "2 - 1", result: "W" }, { opponent: "NED", score: "2 - 2", result: "D" }] },
+  { id: "CRO", name: "Kroasia", rank: 12, league: "A", formScore: 8 },
+  { id: "SUI", name: "Swiss", rank: 15, league: "A", formScore: 4 },
+  { id: "DEN", name: "Denmark", rank: 20, league: "A", formScore: 7 },
+  { id: "AUT", name: "Austria", rank: 22, league: "A", formScore: 10 },
+  { id: "POL", name: "Polandia", rank: 30, league: "A", formScore: 4 },
+  { id: "HUN", name: "Hungaria", rank: 31, league: "A", formScore: 5 },
+  { id: "SRB", name: "Serbia", rank: 35, league: "A", formScore: 5 },
+  { id: "ISR", name: "Israel", rank: 79, league: "A", formScore: 3 },
+
+  // Liga B
+  { id: "TUR", name: "Turki", rank: 26, league: "B", formScore: 10, matches: [{ opponent: "ISL", score: "4 - 2", result: "W" }, { opponent: "MNE", score: "1 - 0", result: "W" }, { opponent: "ISL", score: "3 - 1", result: "W" }, { opponent: "WAL", score: "0 - 0", result: "D" }, { opponent: "WAL", score: "0 - 0", result: "D" }] },
+  { id: "UKR", name: "Ukraina", rank: 25, league: "B", formScore: 7 },
+  { id: "WAL", name: "Wales", rank: 29, league: "B", formScore: 8 },
+  { id: "SWE", name: "Swedia", rank: 28, league: "B", formScore: 13 },
+  { id: "SCO", name: "Skotlandia", rank: 52, league: "B", formScore: 4 },
+  { id: "CZE", name: "Ceko", rank: 46, league: "B", formScore: 8 },
+  { id: "NOR", name: "Norwegia", rank: 47, league: "B", formScore: 10 },
+  { id: "GRE", name: "Yunani", rank: 48, league: "B", formScore: 12 },
+  { id: "ROU", name: "Rumania", rank: 45, league: "B", formScore: 12 },
+  { id: "SVK", name: "Slowakia", rank: 41, league: "B", formScore: 10 },
+  { id: "SVN", name: "Slovenia", rank: 51, league: "B", formScore: 5 },
+  { id: "IRL", name: "Republik Irlandia", rank: 62, league: "B", formScore: 6 },
+  { id: "FIN", name: "Finlandia", rank: 63, league: "B", formScore: 1 },
+  { id: "BIH", name: "Bosnia & Herzegovina", rank: 75, league: "B", formScore: 2 },
+  { id: "GEO", name: "Georgia", rank: 66, league: "B", formScore: 6 },
+  { id: "ALB", name: "Albania", rank: 67, league: "B", formScore: 7 },
+
+  // Liga C
+  { id: "CYP", name: "Siprus", rank: 127, league: "C", formScore: 6, matches: [{ opponent: "KOS", score: "0 - 3", result: "L" }, { opponent: "ROU", score: "0 - 3", result: "L" }, { opponent: "KOS", score: "0 - 4", result: "L" }, { opponent: "LTU", score: "1 - 0", result: "W" }, { opponent: "LTU", score: "2 - 1", result: "W" }] },
+  { id: "LVA", name: "Latvia", rank: 137, league: "C", formScore: 4, matches: [{ opponent: "MKD", score: "0 - 1", result: "L" }, { opponent: "FRO", score: "1 - 1", result: "D" }, { opponent: "MKD", score: "0 - 3", result: "L" }, { opponent: "FRO", score: "1 - 0", result: "W" }, { opponent: "ARM", score: "1 - 4", result: "L" }] },
+  { id: "MKD", name: "Makedonia Utara", rank: 72, league: "C", formScore: 13 },
+  { id: "MNE", name: "Montenegro", rank: 74, league: "C", formScore: 0 },
+  { id: "NIR", name: "Irlandia Utara", rank: 71, league: "C", formScore: 10 },
+  { id: "ISL", name: "Islandia", rank: 70, league: "C", formScore: 4 },
+  { id: "BUL", name: "Bulgaria", rank: 84, league: "C", formScore: 6 },
+  { id: "LUX", name: "Luksemburg", rank: 89, league: "C", formScore: 2 },
+  { id: "ARM", name: "Armenia", rank: 96, league: "C", formScore: 4 },
+  { id: "BLR", name: "Belarus", rank: 97, league: "C", formScore: 6 },
+  { id: "KOS", name: "Kosovo", rank: 101, league: "C", formScore: 9 },
+  { id: "KAZ", name: "Kazakhstan", rank: 107, league: "C", formScore: 1 },
+  { id: "AZE", name: "Azerbaijan", rank: 118, league: "C", formScore: 1 },
+  { id: "EST", name: "Estonia", rank: 124, league: "C", formScore: 4 },
+  { id: "FRO", name: "Kepulauan Faroe", rank: 138, league: "C", formScore: 6 },
+  { id: "LTU", name: "Lituania", rank: 141, league: "C", formScore: 0 },
+
+  // Liga D
+  { id: "MDA", name: "Moldova", rank: 150, league: "D", formScore: 10 },
+  { id: "MLT", name: "Malta", rank: 170, league: "D", formScore: 10 },
+  { id: "AND", name: "Andorra", rank: 169, league: "D", formScore: 3 },
+  { id: "GIB", name: "Gibraltar", rank: 198, league: "D", formScore: 7 },
+  { id: "LIE", name: "Liechtenstein", rank: 202, league: "D", formScore: 3 },
+  { id: "SMR", name: "San Marino", rank: 210, league: "D", formScore: 7 }
 ];
 
 function getTeamMatches(team) {
@@ -100,14 +79,22 @@ const h2hDatabase = [
   { teamA: "ESP", teamB: "FRA", matches: [
     { date: "2024-07-09", event: "Euro 2024 Semi Final", score: "2 - 1", winner: "ESP" },
     { date: "2021-10-10", event: "Nations League Final", score: "1 - 2", winner: "FRA" },
-    { date: "2017-03-28", event: "International Friendly", score: "2 - 0", winner: "ESP" },
-    { date: "2014-09-04", event: "International Friendly", score: "0 - 1", winner: "FRA" },
-    { date: "2013-03-26", event: "World Cup Qualifier", score: "0 - 1", winner: "ESP" }
+    { date: "2017-03-28", event: "Friendly", score: "2 - 0", winner: "ESP" }
+  ]},
+  { teamA: "TUR", teamB: "ITA", matches: [
+    { date: "2024-06-04", event: "Friendly", score: "0 - 0", winner: "DRAW" },
+    { date: "2022-03-29", event: "Friendly", score: "2 - 3", winner: "ITA" },
+    { date: "2021-06-11", event: "Euro 2020", score: "0 - 3", winner: "ITA" }
+  ]},
+  { teamA: "CYP", teamB: "LVA", matches: [
+    { date: "2024-03-21", event: "Friendly", score: "1 - 1", winner: "DRAW" },
+    { date: "2016-02-16", event: "Friendly", score: "1 - 0", winner: "CYP" }
   ]}
 ];
 
 const homeSelect = document.getElementById('homeTeam');
 const awaySelect = document.getElementById('awayTeam');
+const upcomingSelect = document.getElementById('upcomingMatches');
 
 function populateTeams() {
   homeSelect.innerHTML = '';
@@ -146,11 +133,20 @@ function updateData() {
   calculateAll(home, away);
 }
 
-// Fungsi Fetch Odds Live Khusus 1xBet
+// Quick Select Laga Mendatang Listener
+upcomingSelect.addEventListener('change', (e) => {
+  const val = e.target.value;
+  if (!val) return;
+
+  const [homeId, awayId] = val.split('-');
+  homeSelect.value = homeId;
+  awaySelect.value = awayId;
+  updateData();
+});
+
 async function fetchLive1xBetOdds(homeName, awayName) {
   if (!ODDS_API_KEY) return;
   
-  // Region EU, Khusus Bookmaker 1xBet (onexbet)
   const url = `https://api.the-odds-api.com/v4/sports/soccer_uefa_nations_league/odds/?apiKey=${ODDS_API_KEY}&regions=eu&bookmakers=onexbet&markets=h2h,spreads,totals&oddsFormat=decimal`;
 
   try {
@@ -164,10 +160,8 @@ async function fetchLive1xBetOdds(homeName, awayName) {
     );
 
     if (match && match.bookmakers && match.bookmakers.length > 0) {
-      // Ambil data pasaran dari 1xBet
       const bookmaker = match.bookmakers.find(b => b.key === 'onexbet') || match.bookmakers[0];
 
-      // 1. Market 1X2
       const h2hMarket = bookmaker.markets.find(m => m.key === 'h2h');
       if (h2hMarket) {
         const homeOut = h2hMarket.outcomes.find(o => o.name === match.home_team);
@@ -179,7 +173,6 @@ async function fetchLive1xBetOdds(homeName, awayName) {
         if (awayOut) document.getElementById('awayOdds').value = awayOut.price.toFixed(2);
       }
 
-      // 2. Market Asian Handicap (HDP)
       const spreadMarket = bookmaker.markets.find(m => m.key === 'spreads');
       if (spreadMarket) {
         const homeSpread = spreadMarket.outcomes.find(o => o.name === match.home_team);
@@ -194,7 +187,6 @@ async function fetchLive1xBetOdds(homeName, awayName) {
         }
       }
 
-      // 3. Market Over/Under (O/U)
       const totalsMarket = bookmaker.markets.find(m => m.key === 'totals');
       if (totalsMarket) {
         const overOut = totalsMarket.outcomes.find(o => o.name === 'Over');
