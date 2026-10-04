@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UEFA Nations League - Flexible HDP & O/U Calculator</title>
+  <title>UEFA Nations League - Pro Odds & Bet Advisor</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=10">
+  <link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 
   <!-- Header Navbar RGB -->
-  <header class="navbar navbar-dark bg-header shadow-sm py-3">
-    <div class="container d-flex justify-content-between align-items-center">
+  <header class="navbar navbar-dark bg-header shadow-sm py-3 mb-3">
+    <div class="container-fluid px-3 px-md-4 d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center gap-2">
         <span class="fs-3">🏆</span>
         <span class="navbar-brand mb-0 h4">UEFA Nations League</span>
@@ -20,10 +20,10 @@
     </div>
   </header>
 
-  <main class="container my-4">
+  <main class="container-fluid px-3 px-md-4 mb-4">
     <!-- Match Setup & Flexible Inputs Card -->
     <div class="card card-custom p-3 p-md-4 mb-4">
-      <h5 class="text-gold mb-3 fw-bold">⚽ Pilih Laga & Input Pasaran Bebas</h5>
+      <h5 class="text-gold mb-3 fw-bold">⚽ Pilih Laga & Input Pasaran</h5>
       
       <!-- Baris 1: Selection Tim -->
       <div class="row g-2 align-items-center mb-3">
@@ -59,7 +59,7 @@
         </div>
       </div>
 
-      <!-- Baris 3: Asian Handicap (HDP) Input Manual Bebas -->
+      <!-- Baris 3: Asian Handicap (HDP) -->
       <div class="p-2 rounded mb-3 bg-dark-box border-cyan">
         <div class="text-cyan fw-bold mb-2 small text-center">2. Asian Handicap (HDP) Sweet Spot</div>
         <div class="row g-2 align-items-center">
@@ -78,7 +78,7 @@
         </div>
       </div>
 
-      <!-- Baris 4: Over / Under (O/U) Input Manual Bebas -->
+      <!-- Baris 4: Over / Under (O/U) -->
       <div class="p-2 rounded mb-3 bg-dark-box border-pink">
         <div class="text-pink fw-bold mb-2 small text-center">3. Over / Under (O/U) Goal Line</div>
         <div class="row g-2 align-items-center">
@@ -106,7 +106,7 @@
 
     <!-- Perbandingan Tim & Ringkasan Stats -->
     <div class="row g-3 mb-4">
-      <div class="col-md-6">
+      <div class="col-12 col-md-6">
         <div class="card card-custom card-home-glow p-3 h-100">
           <h5 id="homeName" class="text-cyan fw-bold mb-3">Home Team</h5>
           <p class="mb-2 text-sub">Ranking FIFA: <span id="homeRank" class="font-mono text-gold fw-bold fs-5">-</span></p>
@@ -114,7 +114,7 @@
           <p class="mb-1 text-sub">Performa (5 Laga): <span id="homeForm" class="font-mono text-green fw-bold fs-6">-</span></p>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-12 col-md-6">
         <div class="card card-custom card-away-glow p-3 h-100">
           <h5 id="awayName" class="text-pink fw-bold mb-3">Away Team</h5>
           <p class="mb-2 text-sub">Ranking FIFA: <span id="awayRank" class="font-mono text-gold fw-bold fs-5">-</span></p>
@@ -124,47 +124,64 @@
       </div>
     </div>
 
-    <!-- Head to Head Section -->
-    <div class="card card-custom p-3 mb-4 text-center">
-      <h6 class="text-purple fw-bold mb-2">🤝 Rekam Head to Head (H2H)</h6>
-      <p id="h2hText" class="text-white mb-0 font-mono fs-6">Pilih dua tim berbeda untuk melihat rekor H2H.</p>
+    <!-- Head to Head (H2H) Detail Section -->
+    <div class="card card-custom p-3 p-md-4 mb-4">
+      <h6 class="text-purple fw-bold mb-3">🤝 Rekam Head to Head (5 Pertemuan Terakhir)</h6>
+      <div id="h2hContainer" class="table-responsive">
+        <!-- Rendered via JS -->
+      </div>
     </div>
 
-    <!-- Algorithmic Prediction & Output -->
-    <div class="card card-custom p-4 mb-4">
-      <h5 class="text-green fw-bold mb-3">🧮 Hasil Kalkulasi Probabilitas & Value</h5>
-      <div class="row align-items-center text-center">
-        <div class="col-4">
-          <p class="mb-1 text-cyan fw-bold small">Menang Home</p>
-          <h3 id="probHome" class="text-cyan font-mono fw-bold mb-0">0%</h3>
-          <small class="text-sub">Implied: <span id="impHome" class="text-white fw-bold">0%</span></small>
-        </div>
-        <div class="col-4">
-          <p class="mb-1 text-gold fw-bold small">Seri (Draw)</p>
-          <h3 id="probDraw" class="text-gold font-mono fw-bold mb-0">0%</h3>
-          <small class="text-sub">Implied: <span id="impDraw" class="text-white fw-bold">0%</span></small>
-        </div>
-        <div class="col-4">
-          <p class="mb-1 text-pink fw-bold small">Menang Away</p>
-          <h3 id="probAway" class="text-pink font-mono fw-bold mb-0">0%</h3>
-          <small class="text-sub">Implied: <span id="impAway" class="text-white fw-bold">0%</span></small>
-        </div>
-      </div>
+    <!-- Modul Rekomendasi / Saran Bet (3 Tahapan Option) -->
+    <div class="card card-custom p-3 p-md-4 mb-4">
+      <h5 class="text-green fw-bold mb-3">🎯 Rekomendasi & Saran Bet Kombinasi</h5>
       
-      <div class="mt-4 text-center">
-        <div class="badge badge-rgb-gold p-3 fs-6" id="valueRecommendation">
-          Analisis Value Match...
+      <div class="row g-3">
+        <!-- Opsi 1: AMAN -->
+        <div class="col-12 col-md-4">
+          <div class="p-3 rounded h-100 border-safe bg-dark-box">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge bg-success text-dark fw-bold px-2 py-1">🟢 AMAN (LOW RISK)</span>
+              <small class="text-sub font-mono" id="safeWinRate">Est. Win: 85%</small>
+            </div>
+            <h6 id="safeBetTitle" class="text-cyan fw-bold mb-2">1X + Total Over 1.5</h6>
+            <p id="safeBetDesc" class="text-sub extra-small mb-0">Cocok untuk parlay/jangkar bet. Peluang menang tinggi dengan proteksi seri & minim gol.</p>
+          </div>
+        </div>
+
+        <!-- Opsi 2: GOOD -->
+        <div class="col-12 col-md-4">
+          <div class="p-3 rounded h-100 border-good bg-dark-box">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge bg-warning text-dark fw-bold px-2 py-1">🟡 GOOD (BALANCED)</span>
+              <small class="text-sub font-mono" id="goodWinRate">Est. Win: 68%</small>
+            </div>
+            <h6 id="goodBetTitle" class="text-gold fw-bold mb-2">Home -0.5 HDP / BTTS Ya</h6>
+            <p id="goodBetDesc" class="text-sub extra-small mb-0">Pilihan single bet terbaik berdasarkan performa tim & perbandingan ranking FIFA.</p>
+          </div>
+        </div>
+
+        <!-- Opsi 3: VERY GOOD -->
+        <div class="col-12 col-md-4">
+          <div class="p-3 rounded h-100 border-verygood bg-dark-box">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="badge bg-danger text-white fw-bold px-2 py-1">🔴 VERY GOOD (HIGH VALUE)</span>
+              <small class="text-sub font-mono" id="veryGoodWinRate">Est. Win: 52%</small>
+            </div>
+            <h6 id="veryGoodBetTitle" class="text-pink fw-bold mb-2">Home Win + Over 2.5 Goal</h6>
+            <p id="veryGoodBetDesc" class="text-sub extra-small mb-0">Kombinasi odds tinggi dengan nilai odds (value) paling menguntungkan.</p>
+          </div>
         </div>
       </div>
     </div>
   </main>
 
   <footer class="py-3 text-center" style="background: #090d16; border-top: 1px solid rgba(0, 243, 255, 0.3);">
-    <div class="container">
-      <small class="text-sub">UEFA Nations League Dashboard • Flexible Input Edition</small>
+    <div class="container-fluid">
+      <small class="text-sub">UEFA Nations League Dashboard • Pro Bet Advisor Edition</small>
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=11"></script>
 </body>
 </html>
