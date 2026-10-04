@@ -151,11 +151,11 @@ document.getElementById('drawOdds').addEventListener('input', updateData);
 document.getElementById('awayOdds').addEventListener('input', updateData);
 
 document.getElementById('hdpHomeOdds').addEventListener('input', updateData);
-document.getElementById('hdpValue').addEventListener('change', updateData);
+document.getElementById('hdpValue').addEventListener('input', updateData);
 document.getElementById('hdpAwayOdds').addEventListener('input', updateData);
 
 document.getElementById('ouOverOdds').addEventListener('input', updateData);
-document.getElementById('ouValue').addEventListener('change', updateData);
+document.getElementById('ouValue').addEventListener('input', updateData);
 document.getElementById('ouUnderOdds').addEventListener('input', updateData);
 
 populateTeams();
