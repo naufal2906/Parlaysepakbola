@@ -1,97 +1,110 @@
-/* Palette Warna Dark Mode Modern (RGB) */
+/* Palette RGB Neon Modern */
 :root {
-  --bg-main: rgb(15, 23, 42);         /* Slate 900 - Latar Belakang Utama */
-  --bg-card: rgb(30, 41, 59);         /* Slate 800 - Latar Kartu & Container */
-  --bg-input: rgb(51, 65, 85);        /* Slate 700 - Latar Input & Select */
-  --border-color: rgb(71, 85, 105);   /* Slate 600 - Garis Tepi */
+  --rgb-bg: rgb(10, 14, 26);
+  --rgb-card: rgba(18, 26, 47, 0.9);
+  --rgb-card-border: rgba(56, 189, 248, 0.3);
   
-  --text-main: rgb(241, 245, 249);    /* Slate 100 - Teks Utama (Sangat Jelas) */
-  --text-muted: rgb(148, 163, 184);   /* Slate 400 - Teks Sekunder/Label */
-  
-  --accent-gold: rgb(250, 204, 21);   /* Gold/Yellow Accent */
-  --accent-cyan: rgb(56, 189, 248);   /* Cyan Accent */
-  --accent-green: rgb(74, 222, 128);  /* Green Accent */
+  /* Warna Neon Vibrant */
+  --neon-cyan: rgb(0, 243, 255);
+  --neon-purple: rgb(189, 0, 255);
+  --neon-green: rgb(0, 255, 136);
+  --neon-gold: rgb(255, 215, 0);
+  --neon-pink: rgb(255, 0, 128);
+  --neon-orange: rgb(255, 123, 0);
+
+  --text-primary: rgb(255, 255, 255);
+  --text-secondary: rgb(180, 195, 220);
 }
 
-/* Paksa Tema Gelap secara Menyeluruh */
-html, body {
-  background-color: var(--bg-main) !important;
-  color: var(--text-main) !important;
+/* Background Utama dengan Gradien RGB Halus */
+body {
+  background: radial-gradient(circle at top left, rgb(20, 10, 40), var(--rgb-bg) 60%),
+              radial-gradient(circle at bottom right, rgb(10, 30, 50), var(--rgb-bg) 60%) !important;
+  color: var(--text-primary) !important;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   min-height: 100vh;
 }
 
-/* Header Navbar */
+/* Header Navbar dengan Animasi Border RGB */
 .bg-header {
-  background-color: rgb(10, 15, 30) !important;
-  border-bottom: 2px solid var(--accent-gold);
+  background: rgba(13, 19, 36, 0.95) !important;
+  border-bottom: 2px solid var(--neon-cyan);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+  backdrop-filter: blur(10px);
 }
 
 .navbar-brand {
-  color: var(--text-main) !important;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800 !important;
 }
 
-/* Card / Container Style */
+/* Card Styling & Efek Glow RGB */
 .card-custom, .card {
-  background-color: var(--bg-card) !important;
-  border: 1px solid var(--border-color) !important;
-  border-radius: 12px !important;
-  color: var(--text-main) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  background: var(--rgb-card) !important;
+  border: 1px solid var(--rgb-card-border) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(56, 189, 248, 0.05);
+  backdrop-filter: blur(8px);
 }
 
-/* Memperbaiki Warna Teks Label & Subtitle */
-.form-label, label, p, span, small {
-  color: var(--text-main) !important;
+/* Card Highlight Khusus */
+.card-home-glow {
+  border-color: rgba(0, 243, 255, 0.5) !important;
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.15) !important;
 }
 
-.text-muted {
-  color: var(--text-muted) !important;
+.card-away-glow {
+  border-color: rgba(255, 0, 128, 0.5) !important;
+  box-shadow: 0 0 15px rgba(255, 0, 128, 0.15) !important;
 }
 
-/* Form Controls (Select & Input) */
+/* Form Dropdown & Input RGB */
 .form-select, .form-input, input[type="number"] {
-  background-color: var(--bg-input) !important;
-  border: 1px solid var(--border-color) !important;
-  color: var(--text-main) !important;
-  border-radius: 8px !important;
+  background-color: rgba(10, 16, 32, 0.9) !important;
+  border: 1px solid rgba(189, 0, 255, 0.4) !important;
+  color: var(--neon-cyan) !important;
+  border-radius: 10px !important;
   padding: 10px 14px;
-}
-
-.form-select:focus, .form-input:focus {
-  border-color: var(--accent-cyan) !important;
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
-}
-
-/* Warna Aksesibilitas & Highlight */
-.text-gold {
-  color: var(--accent-gold) !important;
-}
-
-.bg-gold {
-  background-color: var(--accent-gold) !important;
-  color: rgb(15, 23, 42) !important;
   font-weight: 600;
 }
 
+.form-select:focus, .form-input:focus {
+  border-color: var(--neon-cyan) !important;
+  box-shadow: 0 0 12px rgba(0, 243, 255, 0.4) !important;
+  outline: none;
+}
+
+/* Warna-Warna Akses & Teks Neon */
+.text-cyan { color: var(--neon-cyan) !important; text-shadow: 0 0 8px rgba(0, 243, 255, 0.4); }
+.text-purple { color: var(--neon-purple) !important; text-shadow: 0 0 8px rgba(189, 0, 255, 0.4); }
+.text-green { color: var(--neon-green) !important; text-shadow: 0 0 8px rgba(0, 255, 136, 0.4); }
+.text-gold { color: var(--neon-gold) !important; text-shadow: 0 0 8px rgba(255, 215, 0, 0.4); }
+.text-pink { color: var(--neon-pink) !important; text-shadow: 0 0 8px rgba(255, 0, 128, 0.4); }
+.text-orange { color: var(--neon-orange) !important; text-shadow: 0 0 8px rgba(255, 123, 0, 0.4); }
+
+.text-main { color: var(--text-primary) !important; }
+.text-sub { color: var(--text-secondary) !important; }
+
+/* Badge Custom */
+.badge-rgb-gold {
+  background: linear-gradient(135deg, var(--neon-gold), var(--neon-orange)) !important;
+  color: #000 !important;
+  font-weight: 700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.badge-rgb-vs {
+  background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink)) !important;
+  color: #fff !important;
+  font-weight: 800;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px rgba(189, 0, 255, 0.4);
+}
+
+/* Font Monospace untuk angka statistik */
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
-
-.font-bold {
-  font-weight: 700;
-}
-
-/* VS Badge */
-.bg-secondary {
-  background-color: var(--bg-input) !important;
-  border: 1px solid var(--border-color);
-  color: var(--accent-gold) !important;
-}
-
-/* Footer */
-footer {
-  background-color: rgb(10, 15, 30) !important;
-  border-top: 1px solid var(--border-color);
-}
+.font-bold { font-weight: 700; }
