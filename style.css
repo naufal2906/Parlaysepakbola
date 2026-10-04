@@ -39,6 +39,15 @@ html, body {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7) !important;
 }
 
+.bg-dark-box {
+  background-color: #070b14 !important;
+}
+
+.border-purple { border: 1px solid rgba(189, 0, 255, 0.4) !important; }
+.border-cyan { border: 1px solid rgba(0, 243, 255, 0.4) !important; }
+.border-pink { border: 1px solid rgba(255, 0, 127, 0.4) !important; }
+.border-orange { border: 1px solid rgba(255, 123, 0, 0.4) !important; }
+
 .card-home-glow {
   border: 2px solid var(--neon-cyan) !important;
   box-shadow: 0 0 15px rgba(0, 243, 255, 0.3) !important;
@@ -49,15 +58,19 @@ html, body {
   box-shadow: 0 0 15px rgba(255, 0, 127, 0.3) !important;
 }
 
-/* Input Form Hemat Tempat */
 .form-select, .form-input, input[type="number"] {
-  background-color: #080d18 !important;
-  border: 1.5px solid var(--neon-purple) !important;
+  background-color: #0b1222 !important;
+  border: 1px solid var(--neon-purple) !important;
   color: var(--neon-cyan) !important;
   border-radius: 8px !important;
-  padding: 8px 10px !important;
+  padding: 6px 8px !important;
   font-weight: 700 !important;
+  font-size: 0.9rem !important;
   width: 100%;
+}
+
+.extra-small {
+  font-size: 0.75rem !important;
 }
 
 .text-cyan { color: var(--neon-cyan) !important; text-shadow: 0 0 8px rgba(0, 243, 255, 0.6); }
