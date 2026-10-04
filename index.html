@@ -1,21 +1,24 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-bs-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UEFA Nations League - Odds & Match Calculator</title>
+  <!-- Bootstrap 5.3 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom Style CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="bg-main text-main">
 
+  <!-- Header Navbar -->
   <header class="navbar navbar-dark bg-header shadow-sm">
     <div class="container d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center gap-2">
         <span class="fs-4">🏆</span>
         <span class="navbar-brand mb-0 h1 font-bold">UEFA Nations League Calculator</span>
       </div>
-      <span class="badge bg-gold text-dark font-mono">GitHub Pages Ready</span>
+      <span class="badge bg-gold font-mono">GitHub Pages Ready</span>
     </div>
   </header>
 
@@ -25,17 +28,17 @@
       <h5 class="text-gold mb-3">⚽ Pilih Pertandingan</h5>
       <div class="row g-3">
         <div class="col-md-5">
-          <label class="form-label text-light">Tim Tuan Rumah (Home)</label>
-          <select id="homeTeam" class="form-select bg-dark text-light border-secondary">
+          <label class="form-label text-main fw-semibold">Tim Tuan Rumah (Home)</label>
+          <select id="homeTeam" class="form-select bg-input text-main border-color">
             <!-- Populated via JS -->
           </select>
         </div>
         <div class="col-md-2 d-flex align-items-end justify-content-center">
-          <span class="badge bg-secondary fs-6 w-100 py-2">VS</span>
+          <span class="badge bg-secondary fs-6 w-100 py-2 my-1">VS</span>
         </div>
         <div class="col-md-5">
-          <label class="form-label text-light">Tim Tamu (Away)</label>
-          <select id="awayTeam" class="form-select bg-dark text-light border-secondary">
+          <label class="form-label text-main fw-semibold">Tim Tamu (Away)</label>
+          <select id="awayTeam" class="form-select bg-input text-main border-color">
             <!-- Populated via JS -->
           </select>
         </div>
@@ -47,17 +50,17 @@
       <div class="col-md-6">
         <div class="card card-custom p-3 h-100">
           <h6 id="homeName" class="text-gold font-bold mb-3">Home Team</h6>
-          <p class="mb-1 text-light">Ranking FIFA: <span id="homeRank" class="font-mono text-warning">-</span></p>
-          <p class="mb-1 text-light">Liga UNL: <span id="homeLeague" class="badge bg-info text-dark">-</span></p>
-          <p class="mb-1 text-light">Performa (5 Laga): <span id="homeForm" class="font-mono text-light">-</span></p>
+          <p class="mb-2 text-main">Ranking FIFA: <span id="homeRank" class="font-mono text-gold fw-bold">-</span></p>
+          <p class="mb-2 text-main">Liga UNL: <span id="homeLeague" class="badge bg-info text-dark fw-bold">-</span></p>
+          <p class="mb-1 text-main">Performa (5 Laga): <span id="homeForm" class="font-mono text-cyan fw-bold">-</span></p>
         </div>
       </div>
       <div class="col-md-6">
         <div class="card card-custom p-3 h-100">
           <h6 id="awayName" class="text-gold font-bold mb-3">Away Team</h6>
-          <p class="mb-1 text-light">Ranking FIFA: <span id="awayRank" class="font-mono text-warning">-</span></p>
-          <p class="mb-1 text-light">Liga UNL: <span id="awayLeague" class="badge bg-info text-dark">-</span></p>
-          <p class="mb-1 text-light">Performa (5 Laga): <span id="awayForm" class="font-mono text-light">-</span></p>
+          <p class="mb-2 text-main">Ranking FIFA: <span id="awayRank" class="font-mono text-gold fw-bold">-</span></p>
+          <p class="mb-2 text-main">Liga UNL: <span id="awayLeague" class="badge bg-info text-dark fw-bold">-</span></p>
+          <p class="mb-1 text-main">Performa (5 Laga): <span id="awayForm" class="font-mono text-cyan fw-bold">-</span></p>
         </div>
       </div>
     </div>
@@ -65,7 +68,7 @@
     <!-- Head to Head Section -->
     <div class="card card-custom p-3 mb-4 text-center">
       <h6 class="text-gold mb-2">🤝 Rekam Head to Head (H2H)</h6>
-      <p id="h2hText" class="text-light mb-0 font-mono">Pilih dua tim berbeda untuk melihat rekor H2H.</p>
+      <p id="h2hText" class="text-main mb-0 font-mono">Pilih dua tim berbeda untuk melihat rekor H2H.</p>
     </div>
 
     <!-- Calculator Input Section -->
@@ -73,22 +76,22 @@
       <h5 class="text-gold mb-3">📊 Odds & Kalkulator Margin Bookmaker</h5>
       <div class="row g-3">
         <div class="col-md-4">
-          <label class="form-label text-light">Odds Home (1)</label>
-          <input type="number" id="homeOdds" class="form-input" step="0.01" value="2.10">
+          <label class="form-label text-main fw-semibold">Odds Home (1)</label>
+          <input type="number" id="homeOdds" class="form-input bg-input text-main" step="0.01" value="2.10">
         </div>
         <div class="col-md-4">
-          <label class="form-label text-light">Odds Draw (X)</label>
-          <input type="number" id="drawOdds" class="form-input" step="0.01" value="3.25">
+          <label class="form-label text-main fw-semibold">Odds Draw (X)</label>
+          <input type="number" id="drawOdds" class="form-input bg-input text-main" step="0.01" value="3.25">
         </div>
         <div class="col-md-4">
-          <label class="form-label text-light">Odds Away (2)</label>
-          <input type="number" id="awayOdds" class="form-input" step="0.01" value="3.50">
+          <label class="form-label text-main fw-semibold">Odds Away (2)</label>
+          <input type="number" id="awayOdds" class="form-input bg-input text-main" step="0.01" value="3.50">
         </div>
       </div>
       
-      <div class="mt-4 p-3 bg-dark rounded border border-secondary text-center">
-        <span class="text-light">Margin Pasar (Vigorish/Overround): </span>
-        <span id="marginVal" class="font-mono text-warning font-bold">0.00%</span>
+      <div class="mt-4 p-3 bg-input rounded border border-color text-center">
+        <span class="text-main">Margin Pasar (Vigorish/Overround): </span>
+        <span id="marginVal" class="font-mono text-gold font-bold fs-5 ms-2">0.00%</span>
       </div>
     </div>
 
@@ -97,36 +100,37 @@
       <h5 class="text-gold mb-3">🧮 Prediksi Algoritmik (FIFA 30% + Form 40% + H2H 30%)</h5>
       <div class="row align-items-center text-center">
         <div class="col-md-4 mb-3 mb-md-0">
-          <p class="mb-1 text-light">Probabilitas Home</p>
-          <h3 id="probHome" class="text-success font-mono">0%</h3>
-          <small class="text-muted">Implied Odds: <span id="impHome">0%</span></small>
+          <p class="mb-1 text-main">Probabilitas Home</p>
+          <h3 id="probHome" class="text-green font-mono fw-bold">0%</h3>
+          <small class="text-muted">Implied Odds: <span id="impHome" class="text-main">0%</span></small>
         </div>
         <div class="col-md-4 mb-3 mb-md-0">
-          <p class="mb-1 text-light">Probabilitas Seri</p>
-          <h3 id="probDraw" class="text-warning font-mono">0%</h3>
-          <small class="text-muted">Implied Odds: <span id="impDraw">0%</span></small>
+          <p class="mb-1 text-main">Probabilitas Seri</p>
+          <h3 id="probDraw" class="text-gold font-mono fw-bold">0%</h3>
+          <small class="text-muted">Implied Odds: <span id="impDraw" class="text-main">0%</span></small>
         </div>
         <div class="col-md-4">
-          <p class="mb-1 text-light">Probabilitas Away</p>
-          <h3 id="probAway" class="text-danger font-mono">0%</h3>
-          <small class="text-muted">Implied Odds: <span id="impAway">0%</span></small>
+          <p class="mb-1 text-main">Probabilitas Away</p>
+          <h3 id="probAway" class="text-danger font-mono fw-bold">0%</h3>
+          <small class="text-muted">Implied Odds: <span id="impAway" class="text-main">0%</span></small>
         </div>
       </div>
       
       <div class="mt-4 text-center">
-        <div class="badge bg-gold text-dark p-2 fs-6" id="valueRecommendation">
+        <div class="badge bg-gold p-2 fs-6 shadow-sm" id="valueRecommendation">
           Analisis Value Match...
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="footer py-3 text-center text-muted">
+  <footer class="footer py-3 text-center">
     <div class="container">
-      <small>UEFA Nations League Dashboard & Calculator • Hosted on GitHub Pages</small>
+      <small class="text-muted">UEFA Nations League Dashboard & Calculator • Hosted on GitHub Pages</small>
     </div>
   </footer>
 
+  <!-- Custom JS -->
   <script src="app.js"></script>
 </body>
 </html>
