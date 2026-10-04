@@ -1,110 +1,92 @@
-/* Palette RGB Neon Modern */
+/* Palette Warna RGB Neon Modern */
 :root {
-  --rgb-bg: rgb(10, 14, 26);
-  --rgb-card: rgba(18, 26, 47, 0.9);
-  --rgb-card-border: rgba(56, 189, 248, 0.3);
+  --rgb-bg: #090d16;
+  --rgb-card: #111a2e;
   
-  /* Warna Neon Vibrant */
-  --neon-cyan: rgb(0, 243, 255);
-  --neon-purple: rgb(189, 0, 255);
-  --neon-green: rgb(0, 255, 136);
-  --neon-gold: rgb(255, 215, 0);
-  --neon-pink: rgb(255, 0, 128);
-  --neon-orange: rgb(255, 123, 0);
+  --neon-cyan: #00f3ff;
+  --neon-purple: #bd00ff;
+  --neon-green: #00ff88;
+  --neon-gold: #ffd700;
+  --neon-pink: #ff007f;
+  --neon-orange: #ff7b00;
 
-  --text-primary: rgb(255, 255, 255);
-  --text-secondary: rgb(180, 195, 220);
+  --text-primary: #ffffff;
+  --text-secondary: #94a3b8;
 }
 
-/* Background Utama dengan Gradien RGB Halus */
-body {
-  background: radial-gradient(circle at top left, rgb(20, 10, 40), var(--rgb-bg) 60%),
-              radial-gradient(circle at bottom right, rgb(10, 30, 50), var(--rgb-bg) 60%) !important;
+/* Background Utama RGB */
+html, body {
+  background: var(--rgb-bg) !important;
   color: var(--text-primary) !important;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
   min-height: 100vh;
 }
 
-/* Header Navbar dengan Animasi Border RGB */
+/* Header Navbar */
 .bg-header {
-  background: rgba(13, 19, 36, 0.95) !important;
-  border-bottom: 2px solid var(--neon-cyan);
-  box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
-  backdrop-filter: blur(10px);
+  background: #0d1424 !important;
+  border-bottom: 3px solid var(--neon-cyan) !important;
+  box-shadow: 0 0 20px rgba(0, 243, 255, 0.4) !important;
 }
 
 .navbar-brand {
-  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--neon-cyan) !important;
   font-weight: 800 !important;
+  text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
 }
 
-/* Card Styling & Efek Glow RGB */
+/* Card & Kartu Custom */
 .card-custom, .card {
   background: var(--rgb-card) !important;
-  border: 1px solid var(--rgb-card-border) !important;
+  border: 1px solid rgba(0, 243, 255, 0.3) !important;
   border-radius: 16px !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 0 12px rgba(56, 189, 248, 0.05);
-  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7) !important;
 }
 
-/* Card Highlight Khusus */
 .card-home-glow {
-  border-color: rgba(0, 243, 255, 0.5) !important;
-  box-shadow: 0 0 15px rgba(0, 243, 255, 0.15) !important;
+  border: 2px solid var(--neon-cyan) !important;
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.3) !important;
 }
 
 .card-away-glow {
-  border-color: rgba(255, 0, 128, 0.5) !important;
-  box-shadow: 0 0 15px rgba(255, 0, 128, 0.15) !important;
+  border: 2px solid var(--neon-pink) !important;
+  box-shadow: 0 0 15px rgba(255, 0, 127, 0.3) !important;
 }
 
-/* Form Dropdown & Input RGB */
+/* Form Input & Select */
 .form-select, .form-input, input[type="number"] {
-  background-color: rgba(10, 16, 32, 0.9) !important;
-  border: 1px solid rgba(189, 0, 255, 0.4) !important;
+  background-color: #080d18 !important;
+  border: 2px solid var(--neon-purple) !important;
   color: var(--neon-cyan) !important;
   border-radius: 10px !important;
-  padding: 10px 14px;
-  font-weight: 600;
+  padding: 10px 14px !important;
+  font-weight: 700 !important;
 }
 
-.form-select:focus, .form-input:focus {
-  border-color: var(--neon-cyan) !important;
-  box-shadow: 0 0 12px rgba(0, 243, 255, 0.4) !important;
-  outline: none;
-}
-
-/* Warna-Warna Akses & Teks Neon */
-.text-cyan { color: var(--neon-cyan) !important; text-shadow: 0 0 8px rgba(0, 243, 255, 0.4); }
-.text-purple { color: var(--neon-purple) !important; text-shadow: 0 0 8px rgba(189, 0, 255, 0.4); }
-.text-green { color: var(--neon-green) !important; text-shadow: 0 0 8px rgba(0, 255, 136, 0.4); }
-.text-gold { color: var(--neon-gold) !important; text-shadow: 0 0 8px rgba(255, 215, 0, 0.4); }
-.text-pink { color: var(--neon-pink) !important; text-shadow: 0 0 8px rgba(255, 0, 128, 0.4); }
-.text-orange { color: var(--neon-orange) !important; text-shadow: 0 0 8px rgba(255, 123, 0, 0.4); }
-
-.text-main { color: var(--text-primary) !important; }
+/* Teks Neon Vibrant */
+.text-cyan { color: var(--neon-cyan) !important; text-shadow: 0 0 8px rgba(0, 243, 255, 0.6); }
+.text-pink { color: var(--neon-pink) !important; text-shadow: 0 0 8px rgba(255, 0, 127, 0.6); }
+.text-gold { color: var(--neon-gold) !important; text-shadow: 0 0 8px rgba(255, 215, 0, 0.6); }
+.text-purple { color: var(--neon-purple) !important; text-shadow: 0 0 8px rgba(189, 0, 255, 0.6); }
+.text-green { color: var(--neon-green) !important; text-shadow: 0 0 8px rgba(0, 255, 136, 0.6); }
+.text-orange { color: var(--neon-orange) !important; text-shadow: 0 0 8px rgba(255, 123, 0, 0.6); }
 .text-sub { color: var(--text-secondary) !important; }
 
 /* Badge Custom */
 .badge-rgb-gold {
   background: linear-gradient(135deg, var(--neon-gold), var(--neon-orange)) !important;
-  color: #000 !important;
-  font-weight: 700;
-  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+  color: #000000 !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
 }
 
 .badge-rgb-vs {
   background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink)) !important;
-  color: #fff !important;
-  font-weight: 800;
-  letter-spacing: 1px;
-  box-shadow: 0 0 10px rgba(189, 0, 255, 0.4);
+  color: #ffffff !important;
+  font-weight: 800 !important;
+  box-shadow: 0 0 12px rgba(189, 0, 255, 0.5);
 }
 
-/* Font Monospace untuk angka statistik */
 .font-mono {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }
-.font-bold { font-weight: 700; }
