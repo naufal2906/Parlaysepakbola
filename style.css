@@ -69,6 +69,12 @@ html, body {
   width: 100%;
 }
 
+.form-input:focus {
+  border-color: var(--neon-cyan) !important;
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 243, 255, 0.5);
+}
+
 .extra-small {
   font-size: 0.75rem !important;
 }
