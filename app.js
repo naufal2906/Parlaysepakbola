@@ -1,5 +1,7 @@
 const ODDS_API_KEY = "00f95a0a3c53536fe82a352e24181652";
+let cachedGames = [];
 
+// Database 54 Negara UEFA
 const teamsData = [
   // Liga A
   { id: "ESP", name: "Spanyol", rank: 1, league: "A", formScore: 15, matches: [{ opponent: "Ceko", score: "3 - 1", result: "W" }, { opponent: "Kroasia", score: "4 - 1", result: "W" }, { opponent: "Inggris", score: "3 - 2", result: "W" }, { opponent: "Argentina", score: "1 - 0", result: "W" }, { opponent: "Prancis", score: "2 - 0", result: "W" }] },
@@ -76,20 +78,9 @@ function getTeamMatches(team) {
 }
 
 const h2hDatabase = [
-  { teamA: "ESP", teamB: "FRA", matches: [
-    { date: "2024-07-09", event: "Euro 2024 Semi Final", score: "2 - 1", winner: "ESP" },
-    { date: "2021-10-10", event: "Nations League Final", score: "1 - 2", winner: "FRA" },
-    { date: "2017-03-28", event: "Friendly", score: "2 - 0", winner: "ESP" }
-  ]},
-  { teamA: "TUR", teamB: "ITA", matches: [
-    { date: "2024-06-04", event: "Friendly", score: "0 - 0", winner: "DRAW" },
-    { date: "2022-03-29", event: "Friendly", score: "2 - 3", winner: "ITA" },
-    { date: "2021-06-11", event: "Euro 2020", score: "0 - 3", winner: "ITA" }
-  ]},
-  { teamA: "CYP", teamB: "LVA", matches: [
-    { date: "2024-03-21", event: "Friendly", score: "1 - 1", winner: "DRAW" },
-    { date: "2016-02-16", event: "Friendly", score: "1 - 0", winner: "CYP" }
-  ]}
+  { teamA: "ESP", teamB: "FRA", matches: [{ date: "2024-07-09", event: "Euro 2024", score: "2 - 1", winner: "ESP" }] },
+  { teamA: "TUR", teamB: "ITA", matches: [{ date: "2024-06-04", event: "Friendly", score: "0 - 0", winner: "DRAW" }] },
+  { teamA: "CYP", teamB: "LVA", matches: [{ date: "2024-03-21", event: "Friendly", score: "1 - 1", winner: "DRAW" }] }
 ];
 
 const homeSelect = document.getElementById('homeTeam');
@@ -113,6 +104,47 @@ function populateTeams() {
   awaySelect.value = "FRA";
 }
 
+// FUNGSI UTAMA: Otomatis Ambil Seluruh Jadwal Laga Live dari API
+async function loadUpcomingMatchesFromAPI() {
+  if (!ODDS_API_KEY) return;
+
+  const url = `https://api.the-odds-api.com/v4/sports/soccer_uefa_nations_league/odds/?apiKey=${ODDS_API_KEY}&regions=eu&bookmakers=onexbet&markets=h2h,spreads,totals&oddsFormat=decimal`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error("Gagal load API");
+    cachedGames = await response.json();
+
+    upcomingSelect.innerHTML = '<option value="">-- Pilih Laga Aktif di 1xBet --</option>';
+
+    if (cachedGames.length === 0) {
+      upcomingSelect.innerHTML = '<option value="">(Tidak Ada Laga UNL Aktif Hari Ini)</option>';
+      return;
+    }
+
+    cachedGames.forEach((game, idx) => {
+      // Cocokkan nama tim API dengan database internal
+      const homeTeamObj = teamsData.find(t => game.home_team.toLowerCase().includes(t.name.toLowerCase()) || t.name.toLowerCase().includes(game.home_team.toLowerCase()));
+      const awayTeamObj = teamsData.find(t => game.away_team.toLowerCase().includes(t.name.toLowerCase()) || t.name.toLowerCase().includes(game.away_team.toLowerCase()));
+
+      const homeId = homeTeamObj ? homeTeamObj.id : "ESP";
+      const awayId = awayTeamObj ? awayTeamObj.id : "FRA";
+
+      const opt = new Option(`⚽ ${game.home_team} vs ${game.away_team}`, `${idx}|${homeId}|${awayId}`);
+      upcomingSelect.add(opt);
+    });
+
+  } catch (err) {
+    console.log("Gagal load jadwal live, menggunakan fallback.");
+    upcomingSelect.innerHTML = `
+      <option value="">-- Pilih Sampel Laga --</option>
+      <option value="SAMPLE|CYP|LVA">Siprus vs Latvia</option>
+      <option value="SAMPLE|TUR|ITA">Turki vs Italia</option>
+      <option value="SAMPLE|FRA|POR">Prancis vs Portugal</option>
+    `;
+  }
+}
+
 function updateData() {
   const home = teamsData.find(t => t.id === homeSelect.value);
   const away = teamsData.find(t => t.id === awaySelect.value);
@@ -129,82 +161,78 @@ function updateData() {
   renderTeamForm('awayFormDetail', getTeamMatches(away));
 
   renderH2H(home, away);
-  fetchLive1xBetOdds(home.name, away.name);
+  parseAndApplyOdds(home, away);
   calculateAll(home, away);
 }
 
-// Quick Select Laga Mendatang Listener
+// Quick Select Event Listener
 upcomingSelect.addEventListener('change', (e) => {
   const val = e.target.value;
   if (!val) return;
 
-  const [homeId, awayId] = val.split('-');
+  const [gameIdx, homeId, awayId] = val.split('|');
   homeSelect.value = homeId;
   awaySelect.value = awayId;
+
+  if (gameIdx !== "SAMPLE" && cachedGames[gameIdx]) {
+    applyOddsFromGame(cachedGames[gameIdx]);
+  }
+
   updateData();
 });
 
-async function fetchLive1xBetOdds(homeName, awayName) {
-  if (!ODDS_API_KEY) return;
-  
-  const url = `https://api.the-odds-api.com/v4/sports/soccer_uefa_nations_league/odds/?apiKey=${ODDS_API_KEY}&regions=eu&bookmakers=onexbet&markets=h2h,spreads,totals&oddsFormat=decimal`;
+// Terapkan Odds dari Data Cached
+function applyOddsFromGame(match) {
+  if (!match || !match.bookmakers || match.bookmakers.length === 0) return;
+  const bookmaker = match.bookmakers.find(b => b.key === 'onexbet') || match.bookmakers[0];
 
-  try {
-    const response = await fetch(url);
-    if (!response.ok) return;
-    const games = await response.json();
+  const h2hMarket = bookmaker.markets.find(m => m.key === 'h2h');
+  if (h2hMarket) {
+    const homeOut = h2hMarket.outcomes.find(o => o.name === match.home_team);
+    const awayOut = h2hMarket.outcomes.find(o => o.name === match.away_team);
+    const drawOut = h2hMarket.outcomes.find(o => o.name === 'Draw');
 
-    const match = games.find(g => 
-      (g.home_team.includes(homeName) || homeName.includes(g.home_team)) &&
-      (g.away_team.includes(awayName) || awayName.includes(g.away_team))
-    );
+    if (homeOut) document.getElementById('homeOdds').value = homeOut.price.toFixed(2);
+    if (drawOut) document.getElementById('drawOdds').value = drawOut.price.toFixed(2);
+    if (awayOut) document.getElementById('awayOdds').value = awayOut.price.toFixed(2);
+  }
 
-    if (match && match.bookmakers && match.bookmakers.length > 0) {
-      const bookmaker = match.bookmakers.find(b => b.key === 'onexbet') || match.bookmakers[0];
+  const spreadMarket = bookmaker.markets.find(m => m.key === 'spreads');
+  if (spreadMarket) {
+    const homeSpread = spreadMarket.outcomes.find(o => o.name === match.home_team);
+    const awaySpread = spreadMarket.outcomes.find(o => o.name === match.away_team);
 
-      const h2hMarket = bookmaker.markets.find(m => m.key === 'h2h');
-      if (h2hMarket) {
-        const homeOut = h2hMarket.outcomes.find(o => o.name === match.home_team);
-        const awayOut = h2hMarket.outcomes.find(o => o.name === match.away_team);
-        const drawOut = h2hMarket.outcomes.find(o => o.name === 'Draw');
-
-        if (homeOut) document.getElementById('homeOdds').value = homeOut.price.toFixed(2);
-        if (drawOut) document.getElementById('drawOdds').value = drawOut.price.toFixed(2);
-        if (awayOut) document.getElementById('awayOdds').value = awayOut.price.toFixed(2);
-      }
-
-      const spreadMarket = bookmaker.markets.find(m => m.key === 'spreads');
-      if (spreadMarket) {
-        const homeSpread = spreadMarket.outcomes.find(o => o.name === match.home_team);
-        const awaySpread = spreadMarket.outcomes.find(o => o.name === match.away_team);
-
-        if (homeSpread) {
-          document.getElementById('hdpValue').value = Math.abs(homeSpread.point).toFixed(2);
-          document.getElementById('hdpHomeOdds').value = homeSpread.price.toFixed(2);
-        }
-        if (awaySpread) {
-          document.getElementById('hdpAwayOdds').value = awaySpread.price.toFixed(2);
-        }
-      }
-
-      const totalsMarket = bookmaker.markets.find(m => m.key === 'totals');
-      if (totalsMarket) {
-        const overOut = totalsMarket.outcomes.find(o => o.name === 'Over');
-        const underOut = totalsMarket.outcomes.find(o => o.name === 'Under');
-
-        if (overOut) {
-          document.getElementById('ouValue').value = overOut.point.toFixed(2);
-          document.getElementById('ouOverOdds').value = overOut.price.toFixed(2);
-        }
-        if (underOut) {
-          document.getElementById('ouUnderOdds').value = underOut.price.toFixed(2);
-        }
-      }
-
-      calculateAll(teamsData.find(t => t.id === homeSelect.value), teamsData.find(t => t.id === awaySelect.value));
+    if (homeSpread) {
+      document.getElementById('hdpValue').value = Math.abs(homeSpread.point).toFixed(2);
+      document.getElementById('hdpHomeOdds').value = homeSpread.price.toFixed(2);
     }
-  } catch (err) {
-    console.log("Menggunakan pasaran manual.");
+    if (awaySpread) {
+      document.getElementById('hdpAwayOdds').value = awaySpread.price.toFixed(2);
+    }
+  }
+
+  const totalsMarket = bookmaker.markets.find(m => m.key === 'totals');
+  if (totalsMarket) {
+    const overOut = totalsMarket.outcomes.find(o => o.name === 'Over');
+    const underOut = totalsMarket.outcomes.find(o => o.name === 'Under');
+
+    if (overOut) {
+      document.getElementById('ouValue').value = overOut.point.toFixed(2);
+      document.getElementById('ouOverOdds').value = overOut.price.toFixed(2);
+    }
+    if (underOut) {
+      document.getElementById('ouUnderOdds').value = underOut.price.toFixed(2);
+    }
+  }
+}
+
+function parseAndApplyOdds(home, away) {
+  if (cachedGames.length > 0) {
+    const match = cachedGames.find(g => 
+      (g.home_team.toLowerCase().includes(home.name.toLowerCase()) || home.name.toLowerCase().includes(g.home_team.toLowerCase())) &&
+      (g.away_team.toLowerCase().includes(away.name.toLowerCase()) || away.name.toLowerCase().includes(g.away_team.toLowerCase()))
+    );
+    if (match) applyOddsFromGame(match);
   }
 }
 
@@ -368,4 +396,5 @@ document.getElementById('ouValue').addEventListener('input', updateData);
 document.getElementById('ouUnderOdds').addEventListener('input', updateData);
 
 populateTeams();
+loadUpcomingMatchesFromAPI();
 updateData();
