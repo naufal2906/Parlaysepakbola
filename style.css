@@ -23,7 +23,6 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Memperbaiki Ruang Kosong Samping */
 main.container-fluid {
   max-width: 100% !important;
   width: 100% !important;
@@ -58,7 +57,6 @@ main.container-fluid {
 .border-pink { border: 1px solid rgba(255, 0, 127, 0.4) !important; }
 .border-orange { border: 1px solid rgba(255, 123, 0, 0.4) !important; }
 
-/* Border Tingkatan Bet */
 .border-safe { border: 1.5px solid var(--neon-green) !important; box-shadow: 0 0 10px rgba(0, 255, 136, 0.2); }
 .border-good { border: 1.5px solid var(--neon-gold) !important; box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
 .border-verygood { border: 1.5px solid var(--neon-pink) !important; box-shadow: 0 0 10px rgba(255, 0, 127, 0.2); }
@@ -91,7 +89,7 @@ main.container-fluid {
 }
 
 .extra-small {
-  font-size: 0.75rem !important;
+  font-size: 0.78rem !important;
 }
 
 .text-cyan { color: var(--neon-cyan) !important; text-shadow: 0 0 8px rgba(0, 243, 255, 0.6); }
@@ -120,16 +118,25 @@ main.container-fluid {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
 }
 
-/* Table H2H Custom */
+/* PERBAIKAN TOTAL TABEL H2H DARK RGB */
 .table-h2h {
-  color: #fff !important;
-  font-size: 0.85rem;
+  background-color: transparent !important;
+  color: #ffffff !important;
+  font-size: 0.82rem;
+  margin-bottom: 0 !important;
 }
+
 .table-h2h th {
-  color: var(--neon-gold);
-  border-bottom: 1px solid var(--neon-purple);
+  background-color: #0d1424 !important;
+  color: var(--neon-gold) !important;
+  border-bottom: 2px solid var(--neon-purple) !important;
+  padding: 10px 6px !important;
 }
+
 .table-h2h td {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 8px 4px;
+  background-color: transparent !important;
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 8px 6px !important;
+  vertical-align: middle;
 }
