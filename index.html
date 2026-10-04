@@ -4,133 +4,130 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>UEFA Nations League - Odds & Match Calculator</title>
-  <!-- Bootstrap 5.3 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Custom Style CSS -->
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-main text-main">
+<body>
 
-  <!-- Header Navbar -->
-  <header class="navbar navbar-dark bg-header shadow-sm">
+  <!-- Header Navbar RGB -->
+  <header class="navbar navbar-dark bg-header shadow-sm py-3">
     <div class="container d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center gap-2">
-        <span class="fs-4">🏆</span>
-        <span class="navbar-brand mb-0 h1 font-bold">UEFA Nations League Calculator</span>
+        <span class="fs-3">🏆</span>
+        <span class="navbar-brand mb-0 h4 font-bold">UEFA Nations League Calculator</span>
       </div>
-      <span class="badge bg-gold font-mono">GitHub Pages Ready</span>
+      <span class="badge badge-rgb-gold font-mono px-3 py-2">RGB MODE ONLINE</span>
     </div>
   </header>
 
   <main class="container my-4">
     <!-- Match Setup Card -->
     <div class="card card-custom p-4 mb-4">
-      <h5 class="text-gold mb-3">⚽ Pilih Pertandingan</h5>
+      <h5 class="text-gold mb-3 font-bold">⚽ Pilih Pertandingan</h5>
       <div class="row g-3">
         <div class="col-md-5">
-          <label class="form-label text-main fw-semibold">Tim Tuan Rumah (Home)</label>
-          <select id="homeTeam" class="form-select bg-input text-main border-color">
+          <label class="form-label text-cyan fw-bold">Tim Tuan Rumah (Home)</label>
+          <select id="homeTeam" class="form-select">
             <!-- Populated via JS -->
           </select>
         </div>
         <div class="col-md-2 d-flex align-items-end justify-content-center">
-          <span class="badge bg-secondary fs-6 w-100 py-2 my-1">VS</span>
+          <span class="badge badge-rgb-vs fs-6 w-100 py-2 my-1">VS</span>
         </div>
         <div class="col-md-5">
-          <label class="form-label text-main fw-semibold">Tim Tamu (Away)</label>
-          <select id="awayTeam" class="form-select bg-input text-main border-color">
+          <label class="form-label text-pink fw-bold">Tim Tamu (Away)</label>
+          <select id="awayTeam" class="form-select">
             <!-- Populated via JS -->
           </select>
         </div>
       </div>
     </div>
 
-    <!-- Comparison Stats -->
+    <!-- Comparison Stats RGB -->
     <div class="row g-3 mb-4">
       <div class="col-md-6">
-        <div class="card card-custom p-3 h-100">
-          <h6 id="homeName" class="text-gold font-bold mb-3">Home Team</h6>
-          <p class="mb-2 text-main">Ranking FIFA: <span id="homeRank" class="font-mono text-gold fw-bold">-</span></p>
-          <p class="mb-2 text-main">Liga UNL: <span id="homeLeague" class="badge bg-info text-dark fw-bold">-</span></p>
-          <p class="mb-1 text-main">Performa (5 Laga): <span id="homeForm" class="font-mono text-cyan fw-bold">-</span></p>
+        <div class="card card-custom card-home-glow p-3 h-100">
+          <h5 id="homeName" class="text-cyan font-bold mb-3">Home Team</h5>
+          <p class="mb-2 text-sub">Ranking FIFA: <span id="homeRank" class="font-mono text-gold fw-bold fs-5">-</span></p>
+          <p class="mb-2 text-sub">Liga UNL: <span id="homeLeague" class="badge bg-primary text-white fw-bold px-3 py-1">-</span></p>
+          <p class="mb-1 text-sub">Performa (5 Laga): <span id="homeForm" class="font-mono text-green fw-bold fs-6">-</span></p>
         </div>
       </div>
       <div class="col-md-6">
-        <div class="card card-custom p-3 h-100">
-          <h6 id="awayName" class="text-gold font-bold mb-3">Away Team</h6>
-          <p class="mb-2 text-main">Ranking FIFA: <span id="awayRank" class="font-mono text-gold fw-bold">-</span></p>
-          <p class="mb-2 text-main">Liga UNL: <span id="awayLeague" class="badge bg-info text-dark fw-bold">-</span></p>
-          <p class="mb-1 text-main">Performa (5 Laga): <span id="awayForm" class="font-mono text-cyan fw-bold">-</span></p>
+        <div class="card card-custom card-away-glow p-3 h-100">
+          <h5 id="awayName" class="text-pink font-bold mb-3">Away Team</h5>
+          <p class="mb-2 text-sub">Ranking FIFA: <span id="awayRank" class="font-mono text-gold fw-bold fs-5">-</span></p>
+          <p class="mb-2 text-sub">Liga UNL: <span id="awayLeague" class="badge bg-primary text-white fw-bold px-3 py-1">-</span></p>
+          <p class="mb-1 text-sub">Performa (5 Laga): <span id="awayForm" class="font-mono text-green fw-bold fs-6">-</span></p>
         </div>
       </div>
     </div>
 
     <!-- Head to Head Section -->
     <div class="card card-custom p-3 mb-4 text-center">
-      <h6 class="text-gold mb-2">🤝 Rekam Head to Head (H2H)</h6>
-      <p id="h2hText" class="text-main mb-0 font-mono">Pilih dua tim berbeda untuk melihat rekor H2H.</p>
+      <h6 class="text-purple font-bold mb-2">🤝 Rekam Head to Head (H2H)</h6>
+      <p id="h2hText" class="text-main mb-0 font-mono fs-6">Pilih dua tim berbeda untuk melihat rekor H2H.</p>
     </div>
 
     <!-- Calculator Input Section -->
     <div class="card card-custom p-4 mb-4">
-      <h5 class="text-gold mb-3">📊 Odds & Kalkulator Margin Bookmaker</h5>
+      <h5 class="text-orange font-bold mb-3">📊 Odds & Kalkulator Margin Bookmaker</h5>
       <div class="row g-3">
         <div class="col-md-4">
-          <label class="form-label text-main fw-semibold">Odds Home (1)</label>
-          <input type="number" id="homeOdds" class="form-input bg-input text-main" step="0.01" value="2.10">
+          <label class="form-label text-cyan fw-bold">Odds Home (1)</label>
+          <input type="number" id="homeOdds" class="form-input" step="0.01" value="2.10">
         </div>
         <div class="col-md-4">
-          <label class="form-label text-main fw-semibold">Odds Draw (X)</label>
-          <input type="number" id="drawOdds" class="form-input bg-input text-main" step="0.01" value="3.25">
+          <label class="form-label text-gold fw-bold">Odds Draw (X)</label>
+          <input type="number" id="drawOdds" class="form-input" step="0.01" value="3.25">
         </div>
         <div class="col-md-4">
-          <label class="form-label text-main fw-semibold">Odds Away (2)</label>
-          <input type="number" id="awayOdds" class="form-input bg-input text-main" step="0.01" value="3.50">
+          <label class="form-label text-pink fw-bold">Odds Away (2)</label>
+          <input type="number" id="awayOdds" class="form-input" step="0.01" value="3.50">
         </div>
       </div>
       
-      <div class="mt-4 p-3 bg-input rounded border border-color text-center">
-        <span class="text-main">Margin Pasar (Vigorish/Overround): </span>
-        <span id="marginVal" class="font-mono text-gold font-bold fs-5 ms-2">0.00%</span>
+      <div class="mt-4 p-3 rounded border text-center" style="background: rgba(10, 16, 32, 0.8); border-color: rgba(255, 123, 0, 0.4) !important;">
+        <span class="text-sub fw-bold">Margin Pasar (Vigorish/Overround): </span>
+        <span id="marginVal" class="font-mono text-orange font-bold fs-4 ms-2">0.00%</span>
       </div>
     </div>
 
     <!-- Algorithmic Prediction & Output -->
     <div class="card card-custom p-4 mb-4">
-      <h5 class="text-gold mb-3">🧮 Prediksi Algoritmik (FIFA 30% + Form 40% + H2H 30%)</h5>
+      <h5 class="text-green font-bold mb-3">🧮 Prediksi Algoritmik (FIFA 30% + Form 40% + H2H 30%)</h5>
       <div class="row align-items-center text-center">
         <div class="col-md-4 mb-3 mb-md-0">
-          <p class="mb-1 text-main">Probabilitas Home</p>
-          <h3 id="probHome" class="text-green font-mono fw-bold">0%</h3>
-          <small class="text-muted">Implied Odds: <span id="impHome" class="text-main">0%</span></small>
+          <p class="mb-1 text-cyan fw-bold">Probabilitas Home</p>
+          <h2 id="probHome" class="text-cyan font-mono fw-bold">0%</h2>
+          <small class="text-sub">Implied Odds: <span id="impHome" class="text-main fw-bold">0%</span></small>
         </div>
         <div class="col-md-4 mb-3 mb-md-0">
-          <p class="mb-1 text-main">Probabilitas Seri</p>
-          <h3 id="probDraw" class="text-gold font-mono fw-bold">0%</h3>
-          <small class="text-muted">Implied Odds: <span id="impDraw" class="text-main">0%</span></small>
+          <p class="mb-1 text-gold fw-bold">Probabilitas Seri</p>
+          <h2 id="probDraw" class="text-gold font-mono fw-bold">0%</h2>
+          <small class="text-sub">Implied Odds: <span id="impDraw" class="text-main fw-bold">0%</span></small>
         </div>
         <div class="col-md-4">
-          <p class="mb-1 text-main">Probabilitas Away</p>
-          <h3 id="probAway" class="text-danger font-mono fw-bold">0%</h3>
-          <small class="text-muted">Implied Odds: <span id="impAway" class="text-main">0%</span></small>
+          <p class="mb-1 text-pink fw-bold">Probabilitas Away</p>
+          <h2 id="probAway" class="text-pink font-mono fw-bold">0%</h2>
+          <small class="text-sub">Implied Odds: <span id="impAway" class="text-main fw-bold">0%</span></small>
         </div>
       </div>
       
       <div class="mt-4 text-center">
-        <div class="badge bg-gold p-2 fs-6 shadow-sm" id="valueRecommendation">
+        <div class="badge badge-rgb-gold p-3 fs-6 shadow-lg" id="valueRecommendation">
           Analisis Value Match...
         </div>
       </div>
     </div>
   </main>
 
-  <footer class="footer py-3 text-center">
+  <footer class="py-3 text-center" style="background: rgba(10, 14, 26, 0.95); border-top: 1px solid rgba(56, 189, 248, 0.2);">
     <div class="container">
-      <small class="text-muted">UEFA Nations League Dashboard & Calculator • Hosted on GitHub Pages</small>
+      <small class="text-sub">UEFA Nations League Dashboard & Calculator • RGB Modern Edition</small>
     </div>
   </footer>
 
-  <!-- Custom JS -->
   <script src="app.js"></script>
 </body>
 </html>
