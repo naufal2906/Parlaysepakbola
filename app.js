@@ -1,4 +1,3 @@
-// Daftar Lengkap 54 Negara Peserta UEFA Nations League
 const teamsData = [
   // Liga A
   { id: "ESP", name: "Spanyol", rank: 1, league: "A", form: ["W", "W", "W", "D", "W"], formScore: 13 },
@@ -66,12 +65,10 @@ const teamsData = [
 const homeSelect = document.getElementById('homeTeam');
 const awaySelect = document.getElementById('awayTeam');
 
-// Fungsi mengisi dropdown tim secara abjad
 function populateTeams() {
   homeSelect.innerHTML = '';
   awaySelect.innerHTML = '';
   
-  // Urutkan tim berdasarkan nama secara alfabetis
   const sortedTeams = [...teamsData].sort((a, b) => a.name.localeCompare(b.name));
 
   sortedTeams.forEach(t => {
@@ -81,9 +78,8 @@ function populateTeams() {
     awaySelect.add(optAway);
   });
   
-  // Default pilihan
-  homeSelect.value = "ESP"; // Spanyol
-  awaySelect.value = "FRA"; // Prancis
+  homeSelect.value = "ESP";
+  awaySelect.value = "FRA";
 }
 
 function updateData() {
@@ -123,7 +119,6 @@ function calculateAll(home, away) {
   document.getElementById('impDraw').innerText = `${impD.toFixed(1)}%`;
   document.getElementById('impAway').innerText = `${impA.toFixed(1)}%`;
 
-  // Algoritma Kalkulasi Berdasarkan Ranking FIFA + Form Tim
   const rankDiff = away.rank - home.rank; 
   let algoHome = 40 + (rankDiff * 0.4) + (home.formScore * 1.2);
   let algoAway = 40 - (rankDiff * 0.4) + (away.formScore * 1.2);
@@ -148,11 +143,20 @@ function calculateAll(home, away) {
   }
 }
 
+// Event Listeners
 homeSelect.addEventListener('change', updateData);
 awaySelect.addEventListener('change', updateData);
 document.getElementById('homeOdds').addEventListener('input', updateData);
 document.getElementById('drawOdds').addEventListener('input', updateData);
 document.getElementById('awayOdds').addEventListener('input', updateData);
+
+document.getElementById('hdpHomeOdds').addEventListener('input', updateData);
+document.getElementById('hdpValue').addEventListener('change', updateData);
+document.getElementById('hdpAwayOdds').addEventListener('input', updateData);
+
+document.getElementById('ouOverOdds').addEventListener('input', updateData);
+document.getElementById('ouValue').addEventListener('change', updateData);
+document.getElementById('ouUnderOdds').addEventListener('input', updateData);
 
 populateTeams();
 updateData();
