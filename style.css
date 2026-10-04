@@ -1,1 +1,68 @@
+:root {
+  --uefa-navy: #0b132b;
+  --uefa-dark-card: #1c2541;
+  --uefa-accent: #3a506b;
+  --uefa-gold: #f4d03f;
+  --text-light: #edf2f4;
+}
+
+body {
+  background-color: var(--uefa-navy);
+  color: var(--text-light);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.bg-header {
+  background-color: #060a17 !important;
+  border-bottom: 2px solid var(--uefa-gold);
+}
+
+.card-custom {
+  background-color: var(--uefa-dark-card);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.text-gold {
+  color: var(--uefa-gold);
+}
+
+.bg-gold {
+  background-color: var(--uefa-gold);
+}
+
+.font-mono {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+.form-input {
+  width: 100%;
+  padding: 8px 12px;
+  background-color: #0b132b;
+  border: 1px solid var(--uefa-accent);
+  color: #fff;
+  border-radius: 6px;
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--uefa-gold);
+}
+
+.footer {
+  background-color: #060a17;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
 
